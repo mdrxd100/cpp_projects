@@ -6,16 +6,13 @@ using namespace std;
 using namespace boost::multiprecision;
 
 void printvector(vector<int> n); // imprime un vector
-vector<int> dec2bin(cpp_int n, vector<int> &resultado); // transforma a binario
+void dec2bin(cpp_int n); // transforma a binario
 vector<int> twoscomplement(vector<int> &negative); // complemento del 2 del numero
 
 int main() {
-  vector<int> nice;
   cpp_int n;
   while (cin >> n) {
-    nice.clear();
-    dec2bin(n, nice);
-    printvector(nice);
+    dec2bin(n);
   }
   return 0;
 }
@@ -29,7 +26,9 @@ void printvector(vector<int> n) {
   cout << endl << "Bitcount: " << bitcount << endl;
 }
 
-vector<int> dec2bin(cpp_int n, vector<int> &resultado) {
+void dec2bin(cpp_int n) {
+  vector<int> resultado;
+  resultado.clear();
   int counter = 31;
   bool isNegative = 0;
   if (n < 1) { // si es negativo, se calcula el valor absoluto
@@ -44,7 +43,7 @@ vector<int> dec2bin(cpp_int n, vector<int> &resultado) {
     swap(resultado[i], resultado[counter]);
     --counter;
   }
-  return (isNegative == 1) ? twoscomplement(resultado) : resultado;
+  printvector((isNegative == 1) ? twoscomplement(resultado) : resultado);
 }
 
 vector<int> twoscomplement(vector<int> &negative) {
